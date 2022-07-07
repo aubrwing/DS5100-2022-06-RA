@@ -1,0 +1,106 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+Exercise 12.2/12.3
+```{r}
+
+scores <- 
+  tibble(
+    name = c("mike", "carol", "greg", "marcia", "peter", "jan", "bobby", "cindy", "alice"),
+    school = c("south", "south", "south", "south", "north", "north", "north", "south", "south"),
+    teacher = c("johnson", "johnson", "johnson", "johnson",  "smith", "smith", "smith", "perry", "perry"),
+    sex = c("male", "female", "male", "female", "male", "female", "male", "female", "female"),
+    math_score = c(4, 3, 2, 4, 3, 4, 5, 4, 5),
+    reading_score = c(1, 5, 2, 4, 5, 4, 1, 5, 4)
+)
+
+scores
+```
+Exercise 12.5
+```{r}
+scores %>%
+  arrange(desc(math_score))
+```
+Exercise 12.7
+```{r}
+scores %>%
+  arrange(sex)
+```
+
+Exercise 12.7 cont
+```{r}
+scores %>%
+  group_by(sex)
+```
+Exercise 12.9
+```{r}
+scores %>%
+  select(name, math_score,reading_score)
+```
+Exercise 12.9
+```{r}
+scores %>%
+  select(-sex, -reading_score)
+```
+Exercise 12.12
+```{r}
+scores %>%
+  select(sex, everything())
+```
+Exercise 12.14
+```{r}
+scores %>%
+  filter(math_score > mean(math_score))
+```
+Exercise 12.7
+```{r}
+scores %>%
+  filter(reading_score ==2 | reading_score == 3| reading_score ==4)
+```
+
+Exercise 12.9
+```{r}
+scores %>%
+  group_by(teacher) %>%
+  filter(max(math_score)==5)
+```
+
+Exercise 12.22
+```{r}
+scores %>%
+  mutate(math_reading_avg = (math_score+reading_score)/2)
+
+```
+Exercise 12.27
+```{r}
+scores %>%
+  group_by(teacher) %>%
+  mutate(math_score_centered_by_teacher = math_score - mean(math_score))
+```
+Exercise 12.29
+```{r}
+scores %>%
+  summarize(math_score_mean = mean(math_score))
+```
+Exercise 12.32
+```{r}
+scores %>%
+  group_by(school) %>%
+  summarize(min_math_score = min(math_score))
+```
+Exercise 12.36
+```{r}
+scores %>%
+  select(name, math_score) %>%
+  mutate(math_score_ec = math_score +5) %>%
+  arrange(math_score_ec )
+```
+Exercise 12.38
+```{r}
+scores %>%
+  filter(teacher != "smith") %>%
+  group_by(sex) %>%
+  summarize(mean_math_score = mean(math_score))
+```
+
