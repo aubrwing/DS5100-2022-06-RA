@@ -1,0 +1,65 @@
+---
+title: "Live Coding Module 13"
+output: html_notebook
+---
+Exercise 13.1
+```{r}
+library(ggplot2)
+mpg %>% ggplot()
+cars
+```
+Exercise 13.2
+```{r}
+ggplot(mpg, aes(x=cyl,y=hwy)) + geom_point()
+```
+Exercise 13.3
+```{r}
+ggplot(mpg, aes(x=drv,y=class))+geom_point()
+```
+Exercise 13.4
+```{r}
+x <- seq(-6*pi, 6*pi, length.out=100)
+y = sin(x)/x
+data = as_tibble(x,y)
+ggplot(data,aes(x=x,y=y))+geom_point()
+```
+Exercise 13.5
+```{r}
+ggplot(cars,aes(x=speed,y=dist))+geom_point(aes(color=dist>80))+
+  scale_color_manual(values = c("black","red"))
+
+```
+Exercise 13.9
+```{r}
+ggplot(cars,aes(x=speed,y=dist))+geom_point(aes(color=dist>80))+
+  scale_color_manual(values = c("black","red")) +
+  geom_smooth(method=lm)
+```
+Exercise 13.10
+```{r}
+ggplot(cars,aes(x=speed)) + geom_histogram()
+ggplot(cars,aes(x=dist)) + geom_histogram()
+```
+Exercise 13.11
+```{r}
+ggplot() +
+  geom_point(mapping=aes(x=hwy,y=cty)) +
+  facet_grid(drv ~ cyl)
+```
+
+Exercise 13.12
+```{r}
+ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width,colour=Species, shape = Species)) + geom_point() + geom_density2d() + theme_light()
+```
+Exercise 13.13
+```{r}
+iris %>%
+  mutate(Species='ALL') %>%
+  bind_rows(iris) %>%
+  ggplot(iris, aes(x=Petal.Length,y=Petal.Width, color=Species)) + 
+  geom_point()+
+  geom_smooth()+
+  facet_wrap(~Species, scales = 'free')+
+  theme_bw()
+```
+
